@@ -1,27 +1,19 @@
-# Terraform AWS VPC Module
+# Network Module
 
-## Overview
+## Purpose
 
-This module provisions an Amazon VPC that serves as the networking foundation for the Cloud Platform Portfolio.
+Creates the networking foundation used by the platform.
 
-## Features
+## Resources
 
-- Creates a reusable VPC
-- DNS Hostnames enabled
-- DNS Support enabled
-- Custom tagging
-- Reusable outputs
+- VPC
 
 ## Inputs
 
-| Name | Type | Required |
-|------|------|----------|
-| name | string | Yes |
-| cidr_block | string | Yes |
+| Name | Description |
+|------|-------------|
 
 ## Outputs
 
-- id
-- arn
-- cidr_block
-- default_route_table_id
+| Name | Description |
+|------|-------------|
