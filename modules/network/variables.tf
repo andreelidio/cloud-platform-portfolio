@@ -35,13 +35,13 @@ variable "tags" {
   default     = {}
 }
 
-variable "avaibility_zones" {
-  description = "A list of availability zones to use for the subnets"
+variable "availability_zones" {
   type        = list(string)
+  description = "Lista de zonas de disponibilidade para criar sub-redes"
   default     = []
 
   validation {
-    condition     = length(var.avaibility_zones) == 2
+    condition     = length(var.availability_zones) == 2
     error_message = "At least two Availability Zones are required."
   }
 }

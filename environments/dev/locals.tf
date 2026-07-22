@@ -2,13 +2,10 @@ locals {
 
   common_tags = {
 
-    Project = "cloud-platform-portfolio"
-
+    Project     = "cloud-platform-portfolio"
     Environment = "dev"
-
-    Owner = "aeos"
-
-    ManagedBy = "Terraform"
+    Owner       = "aeos"
+    ManagedBy   = "Terraform"
 
   }
 

@@ -9,3 +9,8 @@ variable "network_name" {
 variable "network_cidr" {
   type = string
 }
+
+variable "availability_zones" {
+  type        = list(string)
+  description = "Lista de zonas de disponibilidade usadas para criar sub-redes"
+}
