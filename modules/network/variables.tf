@@ -17,7 +17,6 @@ variable "cidr" {
 
   }
 }
-
 variable "enable_dns_support" {
   description = "A boolean flag to enable/disable DNS support in the VPC"
   type        = bool
@@ -34,4 +33,15 @@ variable "tags" {
   description = "A map of tags to assign to the resource"
   type        = map(string)
   default     = {}
+}
+
+variable "avaibility_zones" {
+  description = "A list of availability zones to use for the subnets"
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = length(var.avaibility_zones) == 2
+    error_message = "At least two Availability Zones are required."
+  }
 }

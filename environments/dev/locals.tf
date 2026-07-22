@@ -6,7 +6,7 @@ locals {
 
     Environment = "dev"
 
-    Owner = "Andre Elidio"
+    Owner = "aeos"
 
     ManagedBy = "Terraform"
 
