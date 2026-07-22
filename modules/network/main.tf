@@ -60,3 +60,20 @@ resource "aws_route_table_association" "this" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_subnet" "private" {
+  for_each = local.subnet_layout.private
+
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = each.value.cidr
+  availability_zone       = each.key
+  map_public_ip_on_launch = false
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.name}-private-${each.key}"
+      Type = "private"
+    }
+  )
+}
