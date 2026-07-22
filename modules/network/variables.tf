@@ -11,7 +11,7 @@ variable "cidr" {
 
   validation {
 
-    condition = can(cidrhost(var.cidr,0))
+    condition = can(cidrhost(var.cidr, 0))
 
     error_message = "Invalid CIDR."
 
