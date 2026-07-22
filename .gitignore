@@ -1,0 +1,33 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plans
+*.tfplan
+plan.out
+
+# Variable files
+*.auto.tfvars
+terraform.tfvars
+.terraform.lock.hcl
+
+# Ignore CLI config
+.terraformrc
+terraform.rc
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
