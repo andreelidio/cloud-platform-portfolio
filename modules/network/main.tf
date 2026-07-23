@@ -77,3 +77,30 @@ resource "aws_subnet" "private" {
     }
   )
 }
+
+resource "aws_eip" "nat" {
+  for_each = aws_subnet.public
+
+  domain = "vpc"
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.name}-nat-eip-${each.key}"
+    }
+  )
+}
+
+resource "aws_nat_gateway" "this" {
+  for_each = aws_subnet.public
+
+  allocation_id = aws_eip.nat[each.key].id
+  subnet_id     = each.value.id
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.name}-nat-gateway-${each.key}"
+    }
+  )
+}
