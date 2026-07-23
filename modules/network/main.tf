@@ -10,6 +10,7 @@ resource "aws_vpc" "this" {
     }
   )
 }
+
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
@@ -76,6 +77,31 @@ resource "aws_subnet" "private" {
       Type = "private"
     }
   )
+}
+
+resource "aws_route_table" "private" {
+  for_each = aws_subnet.private
+
+  vpc_id = aws_vpc.this.id
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.this[each.key].id
+  }
+
+  tags = merge(
+    local.common_tags,
+    {
+      Name = aws_nat_gateway.this[each.key].id
+      Type = "private"
+    }
+  )
+}
+
+resource "aws_route_table_association" "this" {
+  for_each = aws_subnet.private
+
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.private[each.key].id
 }
 
 resource "aws_eip" "nat" {
