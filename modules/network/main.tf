@@ -1,4 +1,4 @@
-#vpc
+# VPC
 resource "aws_vpc" "this" {
   cidr_block           = var.cidr
   enable_dns_support   = var.enable_dns_support
@@ -12,7 +12,7 @@ resource "aws_vpc" "this" {
   )
 }
 
-#internet gateway
+# Internet Gateway
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
@@ -24,7 +24,7 @@ resource "aws_internet_gateway" "this" {
   )
 }
 
-#subnets public
+# Public Subnets
 resource "aws_subnet" "public" {
   for_each = local.subnet_layout.public
 
@@ -42,7 +42,7 @@ resource "aws_subnet" "public" {
   )
 }
 
-#route tables public
+# Public Route Table
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
   route {
@@ -59,14 +59,14 @@ resource "aws_route_table" "public" {
   )
 }
 
-resource "aws_route_table_association" "this" {
+resource "aws_route_table_association" "public" {
   for_each = aws_subnet.public
 
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
 }
 
-#subnets private
+# Private Subnets
 resource "aws_subnet" "private" {
   for_each = local.subnet_layout.private
 
@@ -84,7 +84,7 @@ resource "aws_subnet" "private" {
   )
 }
 
-#route tables private
+# Private Route Tables
 resource "aws_route_table" "private" {
   for_each = aws_subnet.private
 
@@ -97,7 +97,7 @@ resource "aws_route_table" "private" {
   tags = merge(
     local.common_tags,
     {
-      Name = aws_nat_gateway.this[each.key].id
+      Name = "${var.name}-private-rtb-${each.key}"
       Type = "private"
     }
   )
@@ -110,7 +110,7 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private[each.key].id
 }
 
-#eip
+# Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
   for_each = aws_subnet.public
 
@@ -124,7 +124,7 @@ resource "aws_eip" "nat" {
   )
 }
 
-#nat gateway
+# NAT Gateway
 resource "aws_nat_gateway" "this" {
   for_each = aws_subnet.public
 

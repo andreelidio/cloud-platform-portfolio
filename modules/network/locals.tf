@@ -1,5 +1,4 @@
 locals {
-
   common_tags = merge(
     {
       Module    = "network"
@@ -9,7 +8,6 @@ locals {
   )
 
   subnet_layout = {
-
     public = {
       for index, az in var.availability_zones :
       az => {
@@ -27,7 +25,5 @@ locals {
         )
       }
     }
-
   }
-
 }
