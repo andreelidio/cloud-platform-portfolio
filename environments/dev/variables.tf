@@ -20,7 +20,6 @@ variable "availability_zones" {
 }
 
 # EKS Cluster Variables
-
 variable "cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
@@ -29,4 +28,29 @@ variable "cluster_name" {
 variable "kubernetes_version" {
   description = "The Kubernetes version for the EKS cluster"
   type        = string
+}
+
+variable "node_instance_types" {
+  description = "EC2 instance types used by EKS worker nodes"
+  type        = list(string)
+}
+
+variable "node_capacity_type" {
+  description = "Capacity type used by EKS worker nodes"
+  type        = string
+}
+
+variable "node_desired_size" {
+  description = "Desired number of EKS worker nodes"
+  type        = number
+}
+
+variable "node_min_size" {
+  description = "Minimum number of EKS worker nodes"
+  type        = number
+}
+
+variable "node_max_size" {
+  description = "Maximum number of EKS worker nodes"
+  type        = number
 }
