@@ -1,16 +1,32 @@
+# NETWORK Variables
 variable "aws_region" {
-  type = string
+  description = "AWS region where resources will be deployed"
+  type        = string
 }
 
 variable "network_name" {
-  type = string
+  description = "Name used as prefix for network resources"
+  type        = string
 }
 
 variable "network_cidr" {
-  type = string
+  description = "CIDR block assigned to the VPC"
+  type        = string
 }
 
 variable "availability_zones" {
+  description = "Availability Zones used to distribute network resources"
   type        = list(string)
-  description = "Lista de zonas de disponibilidade usadas para criar sub-redes"
+}
+
+# EKS Cluster Variables
+
+variable "cluster_name" {
+  description = "The name of the EKS cluster"
+  type        = string
+}
+
+variable "kubernetes_version" {
+  description = "The Kubernetes version for the EKS cluster"
+  type        = string
 }
