@@ -16,6 +16,7 @@ module "eks" {
   kubernetes_version   = var.kubernetes_version
 
   private_subnet_ids   = values(module.network.private_subnet_ids)
+  public_access_cidrs    = var.eks_public_access_cidrs
 
   node_instance_types = var.node_instance_types
   node_capacity_type  = var.node_capacity_type

@@ -54,3 +54,8 @@ variable "node_max_size" {
   description = "Maximum number of EKS worker nodes"
   type        = number
 }
+
+variable "eks_public_access_cidrs" {
+  description = "List of CIDR blocks allowed to access the EKS cluster API server"
+  type        = list(string)
+}
